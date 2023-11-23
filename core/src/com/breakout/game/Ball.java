@@ -18,9 +18,14 @@ public class Ball {
         y += velocityY;
 
         if (y <= 0) Game.balls.remove(this);
-        if (x - 10 <= 0 || x >= 806) velocityX *= -1;
+        if (x - 10 <= 0) {
+            velocityX *= -1;
+            x = 10;
+        } else if(x + 10 >= 806) {
+            velocityX *= -1;
+            x = 796;
+        }
         if (y >= 700) velocityY *= -1;
-
         else if (y - 10 <= 90 && y + 10 >= 75) {
             if (x + 10 >= Paddle.x && x - 10 <= Paddle.x + 150) {
                 // calculates velocity from paddle
@@ -36,14 +41,7 @@ public class Ball {
     }
 
     public void bounce (Tile tile) {
-        // calculates velocity from tile
-        float distance = x - (tile.x + 25);
-        velocityX = distance / 20 * speed;
-        if (distance > 0) {
-            velocityY = -(speed - velocityX);
-        } else {
-            velocityY = -(speed + velocityX);
-        }
+
     }
     static void render(ShapeRenderer sr) {
         sr.setColor(1, 1, 1, 1);
