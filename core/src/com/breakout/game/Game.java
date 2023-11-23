@@ -12,16 +12,7 @@ public class Game extends ApplicationAdapter {
 
 	public void setGame() {
 		Tile.generate();
-		balls.add(new Ball(405, 75, 7));
-	}
-
-	public void collision(Ball ball, Tile tile) {
-		if (tile.health > 1) {
-			tile.health--;
-			tile.changeColour();
-		} else tiles.remove(tile);
-		ball.velocityX *= -1;
-		ball.velocityY *= -1;
+		balls.add(new Ball(405, 75, 10));
 	}
 
 	public void logic() {
@@ -35,7 +26,8 @@ public class Game extends ApplicationAdapter {
 				for (int j = 0; j < tiles.size(); j++) {
 					Tile tile = tiles.get(j);
 					if (ball.y + 10 >= tile.y && ball.y - 10 <= tile.y + 20 && ball.x + 10 >= tile.x && ball.x - 10 <= tile.x + 50) {
-						collision(ball, tile);
+						tile.collision();
+						ball.bounce(tile);
 					}
 				}
 			}

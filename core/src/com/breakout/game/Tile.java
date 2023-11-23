@@ -36,6 +36,13 @@ public class Tile {
         }
     }
 
+    public void collision() {
+        if (health > 1) {
+            health--;
+            changeColour();
+        } else Game.tiles.remove(this);
+    }
+
     static void render(ShapeRenderer sr) {
         for (Tile tile : Game.tiles) {
             sr.setColor(tile.colour);

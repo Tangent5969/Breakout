@@ -25,12 +25,26 @@ public class Ball {
             if (x + 10 >= Paddle.x && x - 10 <= Paddle.x + 150) {
                 // calculates velocity from paddle
                 float distance = x - (Paddle.x + 75);
-                velocityX = distance / 75 * speed;
-                velocityY = speed - velocityX;
+                velocityX = distance / 110 * speed;
+                if (distance > 0) {
+                    velocityY = speed - velocityX;
+                } else {
+                    velocityY = speed + velocityX;
+                }
             }
         }
     }
 
+    public void bounce (Tile tile) {
+        // calculates velocity from tile
+        float distance = x - (tile.x + 25);
+        velocityX = distance / 20 * speed;
+        if (distance > 0) {
+            velocityY = -(speed - velocityX);
+        } else {
+            velocityY = -(speed + velocityX);
+        }
+    }
     static void render(ShapeRenderer sr) {
         sr.setColor(1, 1, 1, 1);
         for (Ball ball : Game.balls) {
