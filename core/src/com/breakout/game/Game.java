@@ -9,31 +9,35 @@ public class Game extends ApplicationAdapter {
 	ShapeRenderer sr;
 	static ArrayList<Tile> tiles = new ArrayList<>();
 	static ArrayList<Ball> balls = new ArrayList<>();
+	static ArrayList<PowerUp> powers = new ArrayList<>();
+	static int multiplier = 10;
 
 	public void setGame() {
 		Tile.generate();
-		balls.add(new Ball(405, 75, 10));
+		balls.add(new Ball(405, 100, 0,1));
 	}
 
 	public void logic() {
 		Paddle.move();
-		for (int i = 0; i < balls.size(); i++) {
-			Ball ball = balls.get(i);
-			ball.move();
+		for (int p = 0; p < powers.size(); p++){
+			PowerUp power = powers.get(p);
+			power.move();
+		}
 
-			// checks for ball collision with tile
-			if (ball.y >= 542) {
-				for (int j = 0; j < tiles.size(); j++) {
-					Tile tile = tiles.get(j);
-					if (ball.y + 10 >= tile.y && ball.y - 10 <= tile.y + Tile.height && ball.x + 10 >= tile.x && ball.x - 10 <= tile.x + Tile.width) {
-						tile.collision();
-						ball.bounce(tile);
-					}
-				}
+		// multiplier controls game speed
+		for (int m = 0; m < multiplier; m++) {
+			for (int i = 0; i < balls.size(); i++) {
+				Ball ball = balls.get(i);
+				ball.move();
 			}
 		}
+
 		if (balls.isEmpty()) {
 			tiles.clear();
+			setGame();
+		} else if (tiles.isEmpty()) {
+			multiplier += 5;
+			balls.clear();
 			setGame();
 		}
 	}
@@ -50,6 +54,7 @@ public class Game extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 1);
 		sr.begin(ShapeRenderer.ShapeType.Filled);
 		Tile.render(sr);
+		PowerUp.render(sr);
 		Paddle.render(sr);
 		Ball.render(sr);
 		sr.end();

@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Breakout");
-		config.setWindowedMode(814, 700);
+		config.setWindowedMode(806, 700);
 		new Lwjgl3Application(new Game(), config);
 	}
 }
