@@ -24,7 +24,7 @@ public class PowerUp {
         int chance = rand.nextInt(1, 100);
         if (chance <= 20) {
             type = "addBall";
-        } else if (chance <=30) {
+        } else if (chance <=25) {
             type = "doubleBalls";
         }
         else return;

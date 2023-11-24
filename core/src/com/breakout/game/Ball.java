@@ -33,6 +33,7 @@ public class Ball {
                     tile.collision();
                     bounce(tile);
                     PowerUp.generate();
+                    Game.score += Game.multiplier;
                 }
             }
         }

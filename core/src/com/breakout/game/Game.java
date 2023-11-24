@@ -1,18 +1,25 @@
 package com.breakout.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.ArrayList;
 
 public class Game extends ApplicationAdapter {
 	ShapeRenderer sr;
+	BitmapFont font;
+	SpriteBatch batch;
 	static ArrayList<Tile> tiles = new ArrayList<>();
 	static ArrayList<Ball> balls = new ArrayList<>();
 	static ArrayList<PowerUp> powers = new ArrayList<>();
 	static int multiplier = 10;
+	static int score = 0;
 
 	public void setGame() {
+		powers.clear();
 		Tile.generate();
 		balls.add(new Ball(405, 100, 0,1));
 	}
@@ -33,6 +40,7 @@ public class Game extends ApplicationAdapter {
 		}
 
 		if (balls.isEmpty()) {
+			multiplier = 10;
 			tiles.clear();
 			setGame();
 		} else if (tiles.isEmpty()) {
@@ -45,6 +53,8 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		sr = new ShapeRenderer();
+		font = new BitmapFont(Gdx.files.internal("assets/font.fnt"), Gdx.files.internal("assets/font.png"), false);
+		batch = new SpriteBatch();
 		setGame();
 	}
 
@@ -58,10 +68,15 @@ public class Game extends ApplicationAdapter {
 		Paddle.render(sr);
 		Ball.render(sr);
 		sr.end();
+
+		batch.begin();
+		// font.draw(batch, "score : " + score, 100, 100);
+		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		sr.dispose();
+		batch.dispose();
 	}
 }
