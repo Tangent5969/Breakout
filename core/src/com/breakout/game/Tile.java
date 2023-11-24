@@ -6,6 +6,8 @@ import java.util.Random;
 
 public class Tile {
     int x, y, health;
+    static int width = 54; // 54
+    static int height = 24;
     Color colour;
 
     Tile(int x, int y) {
@@ -18,7 +20,7 @@ public class Tile {
     static void generate() {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 6; j++) {
-                Game.tiles.add(new Tile(i * 50 + i * 4, j * 20 + 560 + j * 4));
+                Game.tiles.add(new Tile(i * width, j * height + 552));
             }
         }
     }
@@ -38,15 +40,17 @@ public class Tile {
 
     public void collision() {
         if (health > 1) {
-            health--;
+            // health--;
             changeColour();
         } else Game.tiles.remove(this);
     }
 
     static void render(ShapeRenderer sr) {
         for (Tile tile : Game.tiles) {
+            sr.setColor(0, 0, 0, 1);
+            sr.rect(tile.x, tile.y, width, height);
             sr.setColor(tile.colour);
-            sr.rect(tile.x, tile.y, 50, 20);
+            sr.rect(tile.x + 2, tile.y + 2, width - 2, height - 2);
         }
     }
 }

@@ -22,38 +22,12 @@ public class Game extends ApplicationAdapter {
 			ball.move();
 
 			// checks for ball collision with tile
-			if (ball.y >= 550) {
+			if (ball.y >= 542) {
 				for (int j = 0; j < tiles.size(); j++) {
 					Tile tile = tiles.get(j);
-					if (ball.y + 10 >= tile.y && ball.y - 10 <= tile.y + 20 && ball.x + 10 >= tile.x && ball.x - 10 <= tile.x + 50) {
+					if (ball.y + 10 >= tile.y && ball.y - 10 <= tile.y + Tile.height && ball.x + 10 >= tile.x && ball.x - 10 <= tile.x + Tile.width) {
 						tile.collision();
-
-						// calculates velocity from tile
-						float distance = ball.x - (tile.x + 25);
-						float height = ball.y - (tile.y + 10);
-						double angle = Math.toDegrees(Math.atan2(tile.y + 10 - ball.y, tile.x + 25 - ball.x));
-						if (angle < -45 && angle > -135) {
-							System.out.println("TOP");
-						} else if (angle < 45) {
-							System.out.println("LEFT");
-						} else if (angle < 135) {
-							System.out.println("BOTTOM");
-						} else {
-							System.out.println("RIGHT");
-						}
-
-						ball.velocityX = (distance / 20) * ball.speed;
-						if (distance > 0) {
-							ball.velocityY = ball.speed - ball.velocityX;
-						} else {
-							ball.velocityY = ball.speed + ball.velocityX;
-						}
-						if (height <= 0) {
-							ball.velocityY *= -1;
-							ball.y = tile.y - 10;
-						} else {
-							ball.y = tile.y + 30;
-						}
+						ball.bounce(tile);
 					}
 				}
 			}

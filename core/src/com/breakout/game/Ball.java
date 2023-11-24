@@ -21,9 +21,9 @@ public class Ball {
         if (x - 10 <= 0) {
             velocityX *= -1;
             x = 10;
-        } else if(x + 10 >= 806) {
+        } else if(x + 10 >= 814) {
             velocityX *= -1;
-            x = 796;
+            x = 804;
         }
         if (y >= 700) velocityY *= -1;
         else if (y - 10 <= 90 && y + 10 >= 75) {
@@ -41,7 +41,27 @@ public class Ball {
     }
 
     public void bounce (Tile tile) {
+        double angle = Math.toDegrees(Math.atan2(tile.y + (double) Tile.height /2 - y, tile.x + (double) Tile.height /2 - x));
+        System.out.println(angle);
+        if (angle < -45 && angle > -135) {
+            System.out.println("TOP");
+            velocityY *= -1;
+        } else if (angle < 45) {
+            System.out.println("LEFT");
+            velocityX *= -1;
 
+            velocityX = 0;
+            velocityY = 0;
+        } else if (angle < 135) {
+            System.out.println("BOTTOM");
+            velocityY *= -1;
+        } else {
+            System.out.println("RIGHT");
+            velocityX *= -1;
+
+            velocityX = 0;
+            velocityY = 0;
+        }
     }
     static void render(ShapeRenderer sr) {
         sr.setColor(1, 1, 1, 1);
