@@ -41,7 +41,7 @@ public class Ball {
             if (x + radius >= Paddle.x && x - radius <= Paddle.x + Paddle.width) {
                 // calculates velocity from paddle
                 float distance = x - (Paddle.x + Paddle.width / 2);
-                velocityX = distance / 110 * speed;
+                velocityX = distance / Paddle.width * 0.75f * speed;
                 velocityY = (float) Math.sqrt(speed * speed - velocityX * velocityX);
             }
         }

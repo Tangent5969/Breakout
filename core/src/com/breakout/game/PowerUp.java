@@ -8,6 +8,7 @@ public class PowerUp {
     int x, y;
     static int width = 30;
     static int height = 40;
+    static int bigPaddleTimer = 0;
     String type;
     Color colour;
     static Random rand = new Random();
@@ -24,8 +25,10 @@ public class PowerUp {
         int chance = rand.nextInt(1, 100);
         if (chance <= 20) {
             type = "addBall";
-        } else if (chance <=25) {
+        } else if (chance <= 25) {
             type = "doubleBalls";
+        } else if (chance <= 35) {
+            type = "bigPaddle";
         }
         else return;
         Game.powers.add(new PowerUp(type));
@@ -35,15 +38,13 @@ public class PowerUp {
         Game.powers.remove(this);
         switch (type) {
             case "addBall":
-                Game.balls.add(new Ball(Paddle.x + Paddle.width / 2, 100, 0, 1));
+                addBall();
                 break;
             case "doubleBalls":
-                int size = Game.balls.size();
-                for (int i = 0; i < size; i++) {
-                    Ball ball = Game.balls.get(i);
-                    Game.balls.add(new Ball(ball.x, ball.y, - ball.velocityX, ball.speed));
-                }
+                doubleBalls();
                 break;
+            case "bigPaddle":
+                bigPaddle(true);
         }
     }
 
@@ -54,6 +55,27 @@ public class PowerUp {
             if (x + width >= Paddle.x && x <= Paddle.x + Paddle.width) {
                 activate();
             }
+        }
+    }
+
+    static void addBall() {
+        Game.balls.add(new Ball(Paddle.x + Paddle.width / 2, 100, 0, 1));
+    }
+
+    static void doubleBalls() {
+        int size = Game.balls.size();
+        for (int i = 0; i < size; i++) {
+            Ball ball = Game.balls.get(i);
+            Game.balls.add(new Ball(ball.x, ball.y, - ball.velocityX, ball.speed));
+        }
+    }
+
+    static void bigPaddle(boolean power) {
+        if (power) bigPaddleTimer = 300;
+        if (bigPaddleTimer == 0) Paddle.width = 150;
+        else {
+            Paddle.width = 250;
+            bigPaddleTimer--;
         }
     }
 

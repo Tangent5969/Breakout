@@ -70,7 +70,7 @@ public class Game extends ApplicationAdapter {
 		sr.end();
 
 		batch.begin();
-		// font.draw(batch, "score : " + score, 100, 100);
+		font.draw(batch, "score : " + score, 11, 35);
 		batch.end();
 	}
 	

@@ -10,6 +10,7 @@ public class Paddle {
     static int y = 75;
 
     static void move() {
+        PowerUp.bigPaddle(false);
         x = Gdx.input.getX() - width / 2;
         if (x < 0) x = 0;
         else if (x + width> 806) x = 806 - width;
