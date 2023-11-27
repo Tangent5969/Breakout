@@ -45,6 +45,7 @@ public class PowerUp {
                 break;
             case "bigPaddle":
                 bigPaddle(true);
+                break;
         }
     }
 
