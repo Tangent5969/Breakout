@@ -41,6 +41,7 @@ public class Game extends ApplicationAdapter {
 
 		if (balls.isEmpty()) {
 			multiplier = 10;
+			score = 0;
 			tiles.clear();
 			setGame();
 		} else if (tiles.isEmpty()) {
