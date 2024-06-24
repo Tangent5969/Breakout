@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Paddle {
-    static int width = 150;
+    static final int initialWidth = 150;
+    static int width = initialWidth;
     static int height = 15;
     static int x = 403;
     static int y = 75;

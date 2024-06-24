@@ -73,7 +73,7 @@ public class PowerUp {
 
     static void bigPaddle(boolean power) {
         if (power) bigPaddleTimer = 300;
-        if (bigPaddleTimer == 0) Paddle.width = 150;
+        if (bigPaddleTimer == 0) Paddle.width = Paddle.initialWidth;
         else {
             Paddle.width = 250;
             bigPaddleTimer--;
